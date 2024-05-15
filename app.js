@@ -55,3 +55,9 @@ app.post('/forecast/', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching the forecast' });
     }
 });
+
+// Käynnistetään sovellus määritetyssä portissa
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`); // Tulostetaan konsoliin, että palvelin on käynnissä
+});
+
