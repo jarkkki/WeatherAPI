@@ -18,3 +18,40 @@ app.get('/', (req, res) => {
     // Lähetetään index.html-tiedosto vastauksena
     res.sendFile(path.join(__dirname + '/index.html'));
 });
+
+// Määritetään reitti sääennusteelle
+app.post('/forecast/', async (req, res) => {
+    console.log(req.body); // Tulostetaan pyynnön runko konsoliin
+    const { q, days } = req.body; // Otetaan pyynnön rungosta q ja days
+
+    // Jos q puuttuu, lähetetään virheilmoitus
+    if (!q) {
+        return res.status(400).json({ error: 'Query parameter is required' });
+    }
+
+    // Määritetään asetukset HTTP-pyynnölle
+    const options = {
+        method: 'GET', // Metodi on GET
+        url: 'https://weatherapi-com.p.rapidapi.com/forecast.json', // URL on sää-API:n osoite
+        params: {
+            q: q,
+            days: days || 1 // Jos days ei ole määritetty, käytetään oletuksena 1
+        },
+        headers: {
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY, // API-avain
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com' // API-isäntä
+        }
+    };
+
+    try {
+        // Tehdään HTTP-pyyntö ja tallennetaan vastaus
+        const response = await axios.request(options);
+        console.log(response.data); // Tulostetaan vastauksen data konsoliin
+        // Renderoidaan 'weather' näkymä ja lähetetään vastauksen data näkymälle
+        res.render('weather', response.data);
+    } catch (error) {
+        // Jos tapahtuu virhe, tulostetaan virhe konsoliin ja lähetetään virheilmoitus
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching the forecast' });
+    }
+});
