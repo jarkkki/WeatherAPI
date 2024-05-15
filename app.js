@@ -9,3 +9,6 @@ require('dotenv').config(); // Dotenv-kirjaston tuonti ympäristömuuttujien kä
 const app = express();
 app.set('view engine', 'ejs'); // Asetetaan EJS näkymämoottoriksi
 const port = 3000; // Määritetään portti, jossa sovellus kuuntelee
+
+// Käytetään body-parser middlewarea jäsentämään pyyntöjen runko
+app.use(bodyParser.urlencoded({ extended: false }));
