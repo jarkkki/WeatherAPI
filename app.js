@@ -12,3 +12,9 @@ const port = 3000; // Määritetään portti, jossa sovellus kuuntelee
 
 // Käytetään body-parser middlewarea jäsentämään pyyntöjen runko
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Määritetään reitti juureen
+app.get('/', (req, res) => {
+    // Lähetetään index.html-tiedosto vastauksena
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
