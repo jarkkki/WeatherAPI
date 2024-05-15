@@ -60,3 +60,4 @@ app.post('/forecast/', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`); // Tulostetaan konsoliin, että palvelin on käynnissä
 });
+
