@@ -5,3 +5,7 @@ const path = require('path'); // Path-kirjaston tuonti polkujen käsittelyyn
 const bodyParser = require('body-parser'); // Body-parser-kirjaston tuonti pyyntöjen rungon jäsentämiseen
 require('dotenv').config(); // Dotenv-kirjaston tuonti ympäristömuuttujien käsittelyyn
 
+// Luodaan uusi Express-sovellus
+const app = express();
+app.set('view engine', 'ejs'); // Asetetaan EJS näkymämoottoriksi
+const port = 3000; // Määritetään portti, jossa sovellus kuuntelee
